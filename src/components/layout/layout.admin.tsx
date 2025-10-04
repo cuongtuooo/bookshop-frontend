@@ -59,6 +59,11 @@ const LayoutAdmin = () => {
             key: '/admin/order',
             icon: <DollarCircleOutlined />
         },
+        {
+            label: <Link to='/admin/category'>Manage category</Link>,
+            key: '/admin/category',
+            icon: <DollarCircleOutlined />
+        },
 
     ];
 

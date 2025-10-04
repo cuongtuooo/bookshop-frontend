@@ -24,6 +24,7 @@ import HistoryPage from 'pages/client/history';
 
 import enUS from 'antd/locale/en_US';
 import viVN from 'antd/locale/vi_VN';
+import ManageCategoryPage from './pages/admin/manage.category';
 
 const router = createBrowserRouter([
   {
@@ -93,6 +94,14 @@ const router = createBrowserRouter([
         element: (
           <ProtectedRoute>
             <ManageUserPage />
+          </ProtectedRoute>
+        ),
+      },
+      {
+        path: "category",
+        element: (
+          <ProtectedRoute>
+            <ManageCategoryPage />
           </ProtectedRoute>
         ),
       },

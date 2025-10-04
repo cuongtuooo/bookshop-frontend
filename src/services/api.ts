@@ -72,9 +72,41 @@ export const getBooksAPI = (query: string) => {
     )
 }
 
+export const getCategoriesAPI = (query: string) => {
+    const urlBackend = `/api/v1/category?${query}`;
+    return axios.get<IBackendRes<IModelPaginate<ICategory>>>(urlBackend,
+        {
+            headers: {
+                delay: 100
+            }
+        }
+    )
+}
+
 export const getCategoryAPI = () => {
-    const urlBackend = `/api/v1/category?current=1&pageSize=20`;
+    const urlBackend = `/api/v1/category`;
     return axios.get<IBackendRes<IModelPaginate<ICategory>>>(urlBackend);
+}
+
+export const createCategoryAPI = (
+    name: string
+) => {
+    const urlBackend = "/api/v1/category";
+    return axios.post<IBackendRes<IRegister>>(urlBackend,
+        { name })
+}
+
+export const updateCategoryAPI = (
+    _id: string, name: string,
+) => {
+    const urlBackend = `/api/v1/category/${_id}`;
+    return axios.patch<IBackendRes<IRegister>>(urlBackend,
+        { name })
+}
+
+export const deleteCategoryAPI = (_id: string) => {
+    const urlBackend = `/api/v1/category/${_id}`;
+    return axios.delete<IBackendRes<IRegister>>(urlBackend)
 }
 
 export const uploadFileAPI = (fileImg: any, folder: string) => {

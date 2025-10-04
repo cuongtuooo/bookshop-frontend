@@ -1,0 +1,120 @@
+.homepage-new {
+    background: #f7f9fc;
+
+    .hero-banner {
+        margin-bottom: 30px;
+
+        .banner-slide {
+            position: relative;
+
+            img {
+                width: 100%;
+                height: 400px;
+                object-fit: cover;
+                border-radius: 10px;
+            }
+
+            .banner-text {
+                position: absolute;
+                top: 30%;
+                left: 10%;
+                color: #fff;
+
+                h2 {
+                    font-size: 2rem;
+                    margin-bottom: 1rem;
+                    text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.6);
+                }
+            }
+        }
+    }
+
+    .homepage-container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 15px;
+    }
+
+    .category-section {
+        margin: 20px 0;
+
+        h3 {
+            margin-bottom: 20px;
+            font-weight: bold;
+        }
+
+        .category-card {
+            text-align: center;
+            border-radius: 8px;
+            background: #fff;
+            padding: 10px;
+            transition: 0.3s;
+
+            &:hover {
+                background: #1890ff;
+                color: #fff;
+                transform: translateY(-5px);
+            }
+        }
+    }
+
+    .book-section {
+        margin: 40px 0;
+
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+
+            h3 {
+                font-weight: bold;
+            }
+        }
+
+        .book-card {
+            border-radius: 10px;
+            overflow: hidden;
+
+            .ant-card-cover img {
+                height: 220px;
+                object-fit: contain;
+                background: #fff;
+                padding: 10px;
+            }
+
+            .book-info {
+                .book-title {
+                    font-size: 14px;
+                    font-weight: 600;
+                    height: 40px;
+                    overflow: hidden;
+                }
+
+                .book-price {
+                    color: #ff4d4f;
+                    font-weight: bold;
+                }
+
+                .book-rating {
+                    display: flex;
+                    align-items: center;
+                    gap: 5px;
+                    font-size: 12px;
+                    margin-top: 5px;
+                    color: #888;
+                }
+            }
+
+            &:hover {
+                transform: translateY(-5px);
+                box-shadow: 0 6px 18px rgba(0, 0, 0, 0.15);
+            }
+        }
+
+        .pagination-wrapper {
+            margin-top: 30px;
+            text-align: center;
+        }
+    }
+}
