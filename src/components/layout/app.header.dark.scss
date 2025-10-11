@@ -1,0 +1,244 @@
+.app-header {
+    background: #141414;
+    color: #f0f0f0;
+    width: 100%;
+    padding: 0 30px;
+    height: 65px;
+    display: flex;
+    align-items: center;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+
+    .header-inner {
+        width: 100%;
+        max-width: 1440px;
+        margin: 0 auto;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .left {
+        display: flex;
+        align-items: center;
+        gap: 15px;
+
+        .menu-toggle {
+            font-size: 1.6rem;
+            cursor: pointer;
+            display: none;
+            color: #61dafb;
+        }
+
+        .logo {
+            cursor: pointer;
+            font-size: 1.2rem;
+            color: #61dafb;
+            display: flex;
+            align-items: center;
+            font-weight: 600;
+            gap: 8px;
+
+            .icon-react {
+                font-size: 26px;
+                animation: spin 12s linear infinite;
+            }
+        }
+    }
+
+    .center {
+        flex: 1;
+        display: flex;
+        justify-content: center;
+
+        .search-box {
+            position: relative;
+            width: 60%;
+
+            input {
+                width: 100%;
+                height: 38px;
+                background: #1f1f1f;
+                border: 1px solid #333;
+                border-radius: 6px;
+                color: #f0f0f0;
+                padding: 0 35px 0 40px;
+                outline: none;
+            }
+
+            .icon-search {
+                position: absolute;
+                left: 12px;
+                top: 50%;
+                transform: translateY(-50%);
+                color: #888;
+                font-size: 18px;
+            }
+
+            input:focus {
+                border-color: #61dafb;
+            }
+        }
+    }
+
+    .right {
+        display: flex;
+        align-items: center;
+        gap: 15px;
+
+        .icon-cart {
+            font-size: 22px;
+            cursor: pointer;
+            color: #61dafb;
+            transition: 0.3s;
+
+            &:hover {
+                color: #7be3ff;
+            }
+        }
+
+        .login-btn {
+            cursor: pointer;
+            color: #61dafb;
+            font-weight: 500;
+
+            &:hover {
+                text-decoration: underline;
+            }
+        }
+
+        .divider {
+            background: #333;
+            height: 25px;
+        }
+
+        .user-menu {
+            color: #fff;
+            cursor: pointer;
+            font-weight: 500;
+
+            &:hover {
+                color: #61dafb;
+            }
+        }
+    }
+
+    @media (max-width: 768px) {
+        .menu-toggle {
+            display: block;
+        }
+
+        .center {
+            display: none;
+        }
+
+        .right {
+            gap: 10px;
+        }
+    }
+}
+
+/* popover giỏ hàng */
+.popover-carts {
+    .ant-popover-inner {
+        background: #1f1f1f !important;
+        color: #f0f0f0;
+    }
+
+    .pop-cart-body {
+        max-width: 320px;
+
+        .book {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 10px;
+
+            img {
+                width: 50px;
+                height: 50px;
+                object-fit: contain;
+                border-radius: 4px;
+                background: #000;
+            }
+
+            .book-info {
+                .title {
+                    font-size: 13px;
+                    color: #ddd;
+                }
+
+                .price {
+                    color: #ff4d4f;
+                    font-weight: 600;
+                }
+            }
+        }
+
+        .pop-cart-footer {
+            margin-top: 10px;
+            text-align: right;
+
+            button {
+                background: #ff4d4f;
+                border: none;
+                color: #fff;
+                padding: 6px 14px;
+                border-radius: 4px;
+                cursor: pointer;
+                transition: 0.2s;
+
+                &:hover {
+                    background: #ff6a64;
+                }
+            }
+        }
+    }
+}
+
+/* drawer tối */
+.drawer-dark .ant-drawer-body {
+    background: #141414;
+    color: #f0f0f0;
+
+    p {
+        cursor: pointer;
+        padding: 10px 0;
+
+        &:hover {
+            color: #61dafb;
+        }
+    }
+}
+
+@keyframes spin {
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+/* ====== Fix dropdown menu trong dark theme ====== */
+.ant-dropdown-menu {
+    background: #1f1f1f !important;
+    border: 1px solid #333 !important;
+    border-radius: 8px !important;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+
+    .ant-dropdown-menu-item {
+        color: #f0f0f0 !important;
+        font-weight: 500;
+
+        &:hover {
+            background-color: #2a2a2a !important;
+            color: #61dafb !important;
+        }
+    }
+
+    .ant-dropdown-menu-item-disabled {
+        color: #888 !important;
+    }
+
+    /* Optional: viền mờ nhẹ khi mở */
+    backdrop-filter: blur(6px);
+}

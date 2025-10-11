@@ -1,0 +1,191 @@
+.layout-admin-dark {
+    background-color: #0d1117;
+    color: #f0f0f0;
+    min-height: 100vh;
+
+    .admin-sider {
+        background-color: #161b22 !important;
+        border-right: 1px solid #222;
+
+        .ant-menu {
+            background-color: transparent !important;
+            color: #c9d1d9;
+        }
+
+        .ant-menu-item {
+            margin: 4px 8px;
+            border-radius: 8px;
+
+            &:hover {
+                background-color: #30363d !important;
+                color: #58a6ff !important;
+            }
+        }
+
+        .ant-menu-item-selected {
+            background-color: #1f6feb !important;
+            color: #fff !important;
+        }
+
+        .ant-menu-item a {
+            color: inherit;
+        }
+    }
+
+    .admin-logo {
+        height: 48px;
+        margin: 16px;
+        color: #fff;
+        font-weight: 600;
+        text-align: center;
+        background: #1f6feb;
+        border-radius: 8px;
+        line-height: 48px;
+        font-size: 16px;
+        box-shadow: 0 0 6px rgba(0, 0, 0, 0.3);
+    }
+
+    .admin-header {
+        background-color: #161b22;
+        border-bottom: 1px solid #30363d;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        height: 55px;
+        padding: 0 16px;
+        color: #f0f0f0;
+
+        .collapse-btn {
+            font-size: 18px;
+            cursor: pointer;
+            color: #f0f0f0;
+        }
+
+        .admin-user {
+            color: #c9d1d9;
+            cursor: pointer;
+
+            &:hover {
+                color: #58a6ff;
+            }
+        }
+    }
+
+    .admin-content {
+        background-color: #0d1117;
+        padding: 20px;
+        color: #f0f0f0;
+        border-top: 1px solid #222;
+        border-radius: 12px;
+        min-height: calc(100vh - 120px);
+    }
+
+    .admin-footer {
+        background: #161b22;
+        color: #8b949e;
+        text-align: center;
+        padding: 12px 0;
+        border-top: 1px solid #30363d;
+    }
+}
+
+/* ===== Force all main texts to white in Admin layout ===== */
+.layout-admin-dark {
+    color: #fff;
+    /* base */
+
+    /* Sidebar menu */
+    .admin-sider {
+
+        .ant-menu,
+        .ant-menu-item,
+        .ant-menu-submenu-title {
+            color: #fff !important;
+        }
+
+        .ant-menu-item a {
+            color: #fff !important;
+        }
+
+        .ant-menu-item-selected,
+        .ant-menu-item-selected a {
+            color: #fff !important;
+        }
+    }
+
+    /* Header (user dropdown trigger) */
+    .admin-header .admin-user {
+        color: #fff !important;
+    }
+
+    /* Dropdown menu */
+    .ant-dropdown-menu {
+        background: #161b22 !important;
+        border: 1px solid #30363d;
+    }
+
+    .ant-dropdown-menu-item {
+        color: #f0f0f0 !important;
+    }
+
+    .ant-dropdown-menu-item:hover {
+        background: #30363d !important;
+        color: #58a6ff !important;
+    }
+
+    /* Content area texts */
+    .admin-content,
+    .admin-content * {
+        color: #f0f0f0;
+        /* default white-ish for readability */
+    }
+
+    /* Breadcrumb, typography, headings */
+    .ant-breadcrumb,
+    .ant-typography,
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6,
+    p,
+    span,
+    label {
+        color: #f0f0f0 !important;
+    }
+
+    /* Form labels & controls */
+    .ant-form-item-label>label {
+        color: #f0f0f0 !important;
+    }
+
+    .ant-input,
+    .ant-input-affix-wrapper,
+    .ant-select-selector,
+    .ant-picker,
+    .ant-input-number,
+    .ant-input-number-input {
+        color: #ffffff !important;
+        background: #111 !important;
+        border-color: #333 !important;
+    }
+
+    /* Tables */
+    .ant-table {
+        color: #f0f0f0;
+        background: #0d1117;
+    }
+
+    .ant-table-thead>tr>th {
+        background: #161b22 !important;
+        color: #f0f0f0 !important;
+        border-color: #30363d !important;
+    }
+
+    .ant-table-tbody>tr>td {
+        color: #f0f0f0 !important;
+        border-color: #222 !important;
+        background: #0d1117 !important;
+    }
+}

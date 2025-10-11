@@ -10,6 +10,7 @@ import { dateRangeValidate } from '@/services/helper';
 import { deleteBookAPI, getBooksAPI } from '@/services/api';
 import CreateBook from './create.book';
 import UpdateBook from './update.book';
+import './admin.book.dark.scss';
 
 
 type TSearch = {

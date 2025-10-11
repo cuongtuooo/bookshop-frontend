@@ -4,6 +4,8 @@ import type { GetProp, UploadFile, UploadProps } from 'antd';
 import dayjs from "dayjs";
 import { FORMATE_DATE_VN } from "@/services/helper";
 import { v4 as uuidv4 } from 'uuid';
+import './admin.book.dark.scss';
+
 type FileType = Parameters<GetProp<UploadProps, 'beforeUpload'>>[0];
 
 interface IProps {

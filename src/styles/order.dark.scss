@@ -1,0 +1,347 @@
+.order-container {
+    background-color: #141414;
+    padding: 20px;
+    border-radius: 10px;
+    color: #f0f0f0;
+
+    .ant-breadcrumb a {
+        color: #61dafb !important;
+    }
+
+    .order-steps {
+        background: #1f1f1f;
+        padding: 15px;
+        border-radius: 10px;
+        margin-bottom: 15px;
+        border: 1px solid #2a2a2a;
+
+        .ant-steps-item-title {
+            color: #f0f0f0 !important;
+        }
+
+        .ant-steps-item-icon {
+            background: #333;
+            border-color: #61dafb;
+        }
+
+        .ant-steps-item-active .ant-steps-item-icon {
+            background: #61dafb;
+            border-color: #61dafb;
+        }
+    }
+
+    .order-book {
+        display: flex;
+        flex-direction: row;
+        gap: 25px;
+        background: #1f1f1f;
+        border: 1px solid #333;
+        border-radius: 10px;
+        padding: 20px;
+        margin-bottom: 20px;
+        transition: background 0.2s ease;
+
+        &:hover {
+            background: #1a1a1a;
+        }
+
+        .book-content {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            width: 50%;
+            justify-content: space-between;
+
+            img {
+                width: 70px;
+                height: 70px;
+                border-radius: 5px;
+                border: 1px solid #333;
+            }
+
+            .title {
+                color: #f0f0f0;
+                font-weight: 500;
+            }
+
+            .price {
+                color: #ee4d2d;
+                font-weight: 600;
+            }
+        }
+
+        .action {
+            width: 50%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 10px;
+
+            button {
+                background-color: #61dafb;
+                color: #000;
+                border: none;
+                padding: 8px 20px;
+                border-radius: 6px;
+                font-weight: 500;
+                cursor: pointer;
+                transition: background 0.2s ease;
+
+                &:hover {
+                    background-color: #7ee0ff;
+                }
+            }
+
+            .ant-input-number {
+                background: #1f1f1f;
+                color: #fff;
+                border-color: #444;
+            }
+        }
+    }
+
+    .order-sum {
+        background: #1f1f1f;
+        border: 1px solid #333;
+        border-radius: 10px;
+        padding: 20px;
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+
+        .calculate {
+            display: flex;
+            justify-content: space-between;
+
+            .sum-final {
+                color: #ee4d2d;
+                font-size: 22px;
+                font-weight: 600;
+            }
+        }
+
+        .info,
+        .method,
+        .address {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            color: #f0f0f0;
+
+            label {
+                color: #bbb;
+            }
+
+            input,
+            .ant-input,
+            .ant-select-selector {
+                background: #1a1a1a;
+                color: #f0f0f0;
+                border: 1px solid #333;
+                border-radius: 5px;
+
+                &:focus {
+                    border-color: #61dafb !important;
+                    box-shadow: 0 0 0 2px rgba(97, 218, 251, 0.2);
+                }
+            }
+        }
+
+        button {
+            background: #61dafb;
+            color: #000;
+            border: none;
+            border-radius: 6px;
+            padding: 10px 20px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.2s ease;
+
+            &:hover {
+                background: #7ee0ff;
+            }
+        }
+    }
+
+    .ant-result {
+        background: #1f1f1f;
+        border: 1px solid #333;
+        border-radius: 10px;
+        padding: 40px;
+        color: #f0f0f0;
+
+        .ant-result-title {
+            color: #61dafb !important;
+        }
+
+        .ant-result-subtitle {
+            color: #bbb;
+        }
+
+        a {
+            color: #61dafb;
+
+            &:hover {
+                color: #7ee0ff;
+            }
+        }
+    }
+}
+
+.order-container-dark {
+    background: #0f0f0f;
+    color: #f0f0f0;
+    padding: 20px;
+    border-radius: 8px;
+}
+
+.order-book-dark {
+    background: #1a1a1a;
+    border: 1px solid #333;
+    border-radius: 6px;
+    padding: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+}
+
+.book-content-dark {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+
+    img {
+        width: 70px;
+        height: 70px;
+        border-radius: 6px;
+    }
+
+    .title {
+        font-weight: 500;
+    }
+
+    .price {
+        color: #ee4d2d;
+    }
+}
+
+.action-dark {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+
+    .sum {
+        color: #ddd;
+    }
+}
+
+.order-sum-dark {
+    background: #1a1a1a;
+    border: 1px solid #333;
+    padding: 20px;
+    border-radius: 8px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+
+    .calculate {
+        display: flex;
+        justify-content: space-between;
+        color: #ccc;
+    }
+
+    .sum-final {
+        color: #ee4d2d;
+        font-weight: 600;
+        font-size: 18px;
+    }
+}
+
+.back-btn {
+    margin-top: 10px;
+    color: #1890ff;
+    cursor: pointer;
+
+    &:hover {
+        text-decoration: underline;
+    }
+}
+
+/* ==== Text trắng cho input/number trong Order (dark) ==== */
+.order-container-dark {
+    /* Label & text mặc định */
+    color: #f0f0f0;
+
+    /* Label của Form */
+    .ant-form-item-label>label {
+        color: #f0f0f0 !important;
+    }
+
+    /* Radio/Text trong form */
+    .ant-radio-wrapper,
+    .ant-typography,
+    .calculate span,
+    .order-book-dark .title,
+    .order-book-dark .sum {
+        color: #f0f0f0 !important;
+    }
+
+    /* Input thường + TextArea */
+    .ant-input,
+    .ant-input-affix-wrapper,
+    .ant-input-textarea,
+    textarea {
+        color: #f0f0f0 !important;
+        background: #111 !important;
+        border-color: #333 !important;
+    }
+
+    /* Placeholder sáng vừa phải */
+    .ant-input::placeholder,
+    textarea::placeholder {
+        color: #9aa4b2 !important;
+        opacity: 1;
+    }
+
+    /* ==== InputNumber (SỐ LƯỢNG) ==== */
+    .ant-input-number {
+        background: #111 !important;
+        border-color: #333 !important;
+    }
+
+    .ant-input-number-input {
+        color: #ffffff !important;
+        /* << chữ trắng */
+        background: transparent !important;
+    }
+
+    .ant-input-number-input::placeholder {
+        color: #9aa4b2 !important;
+    }
+
+    /* Nút mũi tên tăng/giảm */
+    .ant-input-number-handler-wrap {
+        background: #111 !important;
+        border-left-color: #333 !important;
+    }
+
+    .ant-input-number-handler {
+        color: #c9d1d9 !important;
+    }
+
+    .ant-input-number-handler-up .anticon,
+    .ant-input-number-handler-down .anticon {
+        color: #c9d1d9 !important;
+    }
+
+    .ant-input-number-handler:hover .anticon {
+        color: #61dafb !important;
+        /* hover xanh cho rõ */
+    }
+
+    /* Divider tối lại */
+    .ant-divider-horizontal {
+        border-color: #2a2a2a !important;
+    }
+}

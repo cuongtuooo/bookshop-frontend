@@ -9,25 +9,20 @@ import {
     MenuFoldOutlined,
     MenuUnfoldOutlined,
 } from '@ant-design/icons';
-import { Layout, Menu, Dropdown, Space, Avatar } from 'antd';
-import { Outlet, useLocation } from "react-router-dom";
-import { Link } from 'react-router-dom';
+import { Layout, Menu, Dropdown, Space } from 'antd';
+import { Outlet, useLocation, Link } from "react-router-dom";
 import { useCurrentApp } from '../context/app.context';
 import type { MenuProps } from 'antd';
 import { logoutAPI } from '@/services/api';
+import './layout.admin.dark.scss'; // ✅ thêm scss dark theme
+
 type MenuItem = Required<MenuProps>['items'][number];
-
 const { Content, Footer, Sider } = Layout;
-
 
 const LayoutAdmin = () => {
     const [collapsed, setCollapsed] = useState(false);
     const [activeMenu, setActiveMenu] = useState('');
-    const {
-        user, setUser, setIsAuthenticated, isAuthenticated,
-        setCarts
-    } = useCurrentApp();
-
+    const { user, setUser, setIsAuthenticated, isAuthenticated, setCarts } = useCurrentApp();
     const location = useLocation();
 
     const items: MenuItem[] = [
@@ -35,151 +30,107 @@ const LayoutAdmin = () => {
             label: <Link to='/admin'>Dashboard</Link>,
             key: '/admin',
             icon: <AppstoreOutlined />,
-
         },
-        // {
-        //     label: <span>Manage Users</span>,
-        //     key: '/admin/user',
-        //     icon: <UserOutlined />,
-        //     children: [
-        //         {
-        //             label: <Link to='/admin/user'>CRUD</Link>,
-        //             key: '/admin/user',
-        //             icon: <TeamOutlined />,
-        //         },
-        //     ]
-        // },
         {
-            label: <Link to='/admin/book'>Manage Books</Link>,
+            label: <Link to='/admin/book'>Quản lý sách</Link>,
             key: '/admin/book',
             icon: <ExceptionOutlined />
         },
         {
-            label: <Link to='/admin/order'>Manage Orders</Link>,
+            label: <Link to='/admin/order'>Quản lý đơn hàng</Link>,
             key: '/admin/order',
             icon: <DollarCircleOutlined />
         },
         {
-            label: <Link to='/admin/category'>Manage category</Link>,
+            label: <Link to='/admin/category'>Quản lý danh mục</Link>,
             key: '/admin/category',
-            icon: <DollarCircleOutlined />
+            icon: <TeamOutlined />
         },
-
     ];
-
 
     useEffect(() => {
         const active: any = items.find(item => location.pathname === (item!.key as any)) ?? "/admin";
-        setActiveMenu(active.key)
-    }, [location])
+        setActiveMenu(active.key);
+    }, [location]);
 
     const handleLogout = async () => {
-        //todo
         const res = await logoutAPI();
         if (res.data) {
             setUser(null);
             setCarts([]);
             setIsAuthenticated(false);
             localStorage.removeItem("access_token");
-            localStorage.removeItem("carts")
+            localStorage.removeItem("carts");
         }
-    }
-
+    };
 
     const itemsDropdown = [
         {
-            label: <label
-                style={{ cursor: 'pointer' }}
-                onClick={() => alert("me")}
-            >Quản lý tài khoản</label>,
-            key: 'account',
-        },
-        {
-            label: <Link to={'/'}>Trang chủ</Link>,
+            label: <Link to="/">Trang chủ</Link>,
             key: 'home',
         },
         {
-            label: <label
-                style={{ cursor: 'pointer' }}
-                onClick={() => handleLogout()}
-            >Đăng xuất</label>,
+            label: <label style={{ cursor: 'pointer' }}>Quản lý tài khoản</label>,
+            key: 'account',
+        },
+        {
+            label: <label style={{ cursor: 'pointer' }} onClick={() => handleLogout()}>Đăng xuất</label>,
             key: 'logout',
         },
-
     ];
 
-    // const urlAvatar = `${import.meta.env.VITE_BACKEND_URL}/images/avatar/${user?.avatar}`;
-
-    if (isAuthenticated === false) {
-        return (
-            <Outlet />
-        )
-    }
+    if (isAuthenticated === false) return <Outlet />;
 
     const isAdminRoute = location.pathname.includes("admin");
     if (isAuthenticated === true && isAdminRoute === true) {
         const role = user?.role;
-        if (role === "USER") {
-            return (
-                <Outlet />
-            )
-        }
+        if (role === "USER") return <Outlet />;
     }
 
     return (
-        <>
-            <Layout
-                style={{ minHeight: '100vh' }}
-                className="layout-admin"
+        <Layout className="layout-admin-dark">
+            <Sider
+                theme="dark"
+                collapsible
+                collapsed={collapsed}
+                onCollapse={(value) => setCollapsed(value)}
+                className="admin-sider"
             >
-                <Sider
-                    theme='light'
-                    collapsible
-                    collapsed={collapsed}
-                    onCollapse={(value) => setCollapsed(value)}>
-                    <div style={{ height: 32, margin: 16, textAlign: 'center' }}>
-                        Admin
-                    </div>
-                    <Menu
-                        // defaultSelectedKeys={[activeMenu]}
-                        selectedKeys={[activeMenu]}
-                        mode="inline"
-                        items={items}
-                        onClick={(e) => setActiveMenu(e.key)}
-                    />
-                </Sider>
-                <Layout>
-                    <div className='admin-header' style={{
-                        height: "50px",
-                        borderBottom: "1px solid #ebebeb",
-                        display: "flex",
-                        alignItems: "center",
-                        justifyContent: "space-between",
-                        padding: "0 15px",
+                <div className="admin-logo">
+                    <span>{collapsed ? 'A' : 'Admin Panel'}</span>
+                </div>
+                <Menu
+                    selectedKeys={[activeMenu]}
+                    mode="inline"
+                    items={items}
+                    onClick={(e) => setActiveMenu(e.key)}
+                    className="admin-menu"
+                />
+            </Sider>
 
-                    }}>
-                        <span>
-                            {React.createElement(collapsed ? MenuUnfoldOutlined : MenuFoldOutlined, {
-                                className: 'trigger',
-                                onClick: () => setCollapsed(!collapsed),
-                            })}
-                        </span>
-                        <Dropdown menu={{ items: itemsDropdown }} trigger={['click']}>
-                            <Space style={{ cursor: "pointer" }}>
-                                {/* <Avatar src={urlAvatar} /> */}
-                                {user?.fullName}
-                            </Space>
-                        </Dropdown>
-                    </div>
-                    <Content style={{ padding: '15px' }}>
-                        <Outlet />
-                    </Content>
-                    <Footer style={{ padding: 0, textAlign: "center" }}>
-                        React Test Fresher &copy; Hỏi Dân IT - Made with <HeartTwoTone />
-                    </Footer>
-                </Layout>
+            <Layout>
+                <div className="admin-header">
+                    <span className="collapse-btn">
+                        {React.createElement(collapsed ? MenuUnfoldOutlined : MenuFoldOutlined, {
+                            onClick: () => setCollapsed(!collapsed),
+                        })}
+                    </span>
+                    <Dropdown menu={{ items: itemsDropdown }} trigger={['click']}>
+                        <Space className="admin-user">
+                            {user?.fullName}
+                        </Space>
+                    </Dropdown>
+                </div>
+
+                <Content className="admin-content">
+                    <Outlet />
+                </Content>
+
+                <Footer className="admin-footer">
+                    Trần Xuân Hà Admin <HeartTwoTone twoToneColor="#ff4d4f" />
+                </Footer>
             </Layout>
-        </>
+        </Layout>
     );
 };
 

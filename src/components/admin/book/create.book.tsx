@@ -11,6 +11,7 @@ import type { GetProp, UploadFile, UploadProps } from 'antd';
 import { MAX_UPLOAD_IMAGE_SIZE } from '@/services/helper';
 import { UploadChangeParam } from 'antd/es/upload';
 import { UploadRequestOption as RcCustomRequestOptions } from 'rc-upload/lib/interface';
+import './admin.book.dark.scss';
 
 type FileType = Parameters<GetProp<UploadProps, 'beforeUpload'>>[0];
 

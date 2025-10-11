@@ -1,0 +1,434 @@
+/* === DARK THEME STYLE FOR ADMIN BOOK COMPONENTS === */
+.layout-admin-dark {
+    .ant-pro-table {
+        background: #0d1117 !important;
+        color: #f0f0f0 !important;
+
+        .ant-pro-card {
+            background: #161b22 !important;
+            color: #f0f0f0 !important;
+            border: 1px solid #30363d !important;
+        }
+
+        table {
+            background: #161b22 !important;
+            color: #f0f0f0 !important;
+
+            th,
+            td {
+                background: #161b22 !important;
+                color: #f0f0f0 !important;
+                border-color: #30363d !important;
+            }
+
+            tr:hover td {
+                background: #1f2937 !important;
+            }
+        }
+
+        .ant-pro-table-list-toolbar {
+            background: #161b22 !important;
+            border-color: #30363d !important;
+
+            .ant-btn {
+                background: #238636 !important;
+                border: none !important;
+                color: #fff !important;
+            }
+
+            .ant-btn:hover {
+                background: #2ea043 !important;
+            }
+        }
+    }
+
+    /* === Modal (Create / Update) === */
+    .ant-modal-content {
+        background: #0d1117 !important;
+        color: #f0f0f0 !important;
+        border: 1px solid #30363d !important;
+    }
+
+    .ant-modal-header {
+        background: #161b22 !important;
+        border-bottom: 1px solid #30363d !important;
+    }
+
+    .ant-modal-title {
+        color: #f0f0f0 !important;
+    }
+
+    .ant-modal-body {
+        color: #f0f0f0 !important;
+    }
+
+    .ant-divider {
+        border-color: #30363d !important;
+    }
+
+    /* === Form fields === */
+    .ant-form-item-label>label {
+        color: #f0f0f0 !important;
+    }
+
+    .ant-input,
+    .ant-input-number-input,
+    .ant-select-selector {
+        background: #111 !important;
+        color: #fff !important;
+        border-color: #30363d !important;
+    }
+
+    .ant-select-dropdown {
+        background: #161b22 !important;
+        color: #fff !important;
+    }
+
+    /* === Upload component === */
+    .ant-upload.ant-upload-select-picture-card {
+        background: #111 !important;
+        border-color: #30363d !important;
+        color: #ccc !important;
+    }
+
+    .ant-upload-list-item {
+        background: #161b22 !important;
+        border-color: #30363d !important;
+    }
+
+    /* === Drawer & Description (DetailBook) === */
+    .ant-drawer-content {
+        background: #0d1117 !important;
+        color: #f0f0f0 !important;
+    }
+
+    .ant-descriptions {
+        background: #161b22 !important;
+        color: #f0f0f0 !important;
+
+        .ant-descriptions-item-label {
+            color: #9cb3c9 !important;
+        }
+
+        .ant-descriptions-item-content {
+            color: #fff !important;
+        }
+    }
+
+    .ant-badge-status-text {
+        color: #58a6ff !important;
+    }
+
+    /* === Buttons === */
+    .ant-btn-primary {
+        background: #238636 !important;
+        border: none !important;
+        color: #fff !important;
+    }
+
+    .ant-btn-primary:hover {
+        background: #2ea043 !important;
+    }
+
+    .ant-btn-default {
+        background: #111 !important;
+        color: #f0f0f0 !important;
+        border: 1px solid #30363d !important;
+    }
+
+    .ant-btn-default:hover {
+        background: #1f2937 !important;
+    }
+}
+
+// Áp dụng toàn bộ cho modal tạo/sửa book
+.ant-modal-content {
+    background-color: #0f172a !important; // nền xanh đen
+    color: #ffffff !important;
+    border: 1px solid #1e293b;
+}
+
+.ant-modal-header {
+    background-color: #0f172a !important;
+    border-bottom: 1px solid #1e293b;
+
+    .ant-modal-title {
+        color: #ffffff !important;
+    }
+}
+
+.ant-modal-body {
+    background-color: #0f172a !important;
+    color: #e2e8f0 !important;
+}
+
+.ant-modal-footer {
+    background-color: #0f172a !important;
+    border-top: 1px solid #1e293b;
+}
+
+// Form label
+.ant-form-item-label>label {
+    color: #e2e8f0 !important;
+    font-weight: 500;
+}
+
+// Input, Select, TextArea, Number Input
+.ant-input,
+.ant-input-number,
+.ant-select-selector,
+.ant-input-affix-wrapper,
+textarea.ant-input {
+    background-color: #1e293b !important;
+    color: #f8fafc !important;
+    border: 1px solid #334155 !important;
+}
+
+.ant-input:hover,
+.ant-input-number:hover,
+.ant-select-selector:hover,
+.ant-input-affix-wrapper:hover {
+    border-color: #60a5fa !important;
+}
+
+.ant-input:focus,
+.ant-input-number-focused,
+.ant-select-focused .ant-select-selector,
+textarea.ant-input:focus {
+    border-color: #3b82f6 !important;
+    box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.2) !important;
+}
+
+// Select dropdown
+.ant-select-dropdown {
+    background-color: #1e293b !important;
+
+    .ant-select-item {
+        color: #f1f5f9 !important;
+
+        &:hover {
+            background-color: #334155 !important;
+        }
+    }
+}
+
+// Upload box
+.ant-upload.ant-upload-select-picture-card {
+    background-color: #1e293b !important;
+    border: 1px dashed #475569 !important;
+    color: #cbd5e1 !important;
+
+    &:hover {
+        border-color: #60a5fa !important;
+        color: #60a5fa !important;
+    }
+}
+
+// Divider
+.ant-divider {
+    border-color: #334155 !important;
+}
+
+// Button override
+.ant-btn-primary {
+    background-color: #2563eb !important;
+    border-color: #2563eb !important;
+
+    &:hover {
+        background-color: #1d4ed8 !important;
+        border-color: #1d4ed8 !important;
+    }
+}
+
+.ant-btn-default {
+    background-color: #334155 !important;
+    color: #e2e8f0 !important;
+    border: 1px solid #475569 !important;
+
+    &:hover {
+        background-color: #475569 !important;
+    }
+}
+
+/* -------------------------
+   DETAIL BOOK (Drawer)
+--------------------------*/
+.ant-drawer-content {
+    background-color: #0f172a !important;
+    color: #f1f5f9 !important;
+}
+
+.ant-drawer-header {
+    background-color: #0f172a !important;
+    border-bottom: 1px solid #1e293b !important;
+
+    .ant-drawer-title {
+        color: #ffffff !important;
+        font-weight: 600;
+    }
+}
+
+.ant-drawer-body {
+    background-color: #0f172a !important;
+    color: #e2e8f0 !important;
+}
+
+/* -------------------------
+   Descriptions block
+--------------------------*/
+.ant-descriptions {
+    background-color: transparent !important;
+    color: #f8fafc !important;
+
+    .ant-descriptions-title {
+        color: #ffffff !important;
+        font-size: 18px;
+        font-weight: 600;
+    }
+
+    .ant-descriptions-item-label {
+        color: #cbd5e1 !important;
+        font-weight: 500;
+        background-color: #1e293b !important;
+        border: 1px solid #334155 !important;
+    }
+
+    .ant-descriptions-item-content {
+        color: #f8fafc !important;
+        background-color: #1e293b !important;
+        border: 1px solid #334155 !important;
+    }
+
+    .ant-descriptions-bordered .ant-descriptions-view {
+        border-color: #334155 !important;
+    }
+}
+
+/* -------------------------
+   Badge + Divider
+--------------------------*/
+.ant-badge-status-text {
+    color: #e2e8f0 !important;
+}
+
+.ant-divider {
+    border-color: #334155 !important;
+    color: #e2e8f0 !important;
+}
+
+/* -------------------------
+   Upload preview (ảnh)
+--------------------------*/
+.ant-upload-list-picture-card-container {
+    background-color: #1e293b !important;
+    border: 1px solid #475569 !important;
+}
+
+.ant-upload-list-item {
+    background-color: #1e293b !important;
+    color: #f1f5f9 !important;
+}
+
+.ant-upload.ant-upload-select-picture-card {
+    background-color: #1e293b !important;
+    border: 1px dashed #475569 !important;
+    color: #cbd5e1 !important;
+
+    &:hover {
+        border-color: #60a5fa !important;
+        color: #60a5fa !important;
+    }
+}
+
+/* =============================
+   FORM DARK MODE FIXES
+============================= */
+
+/* Input + TextArea */
+.ant-input,
+.ant-input-affix-wrapper,
+.ant-input-number-input,
+.ant-input-number,
+.ant-input-number-group-wrapper,
+.ant-input-number-affix-wrapper,
+.ant-input-number-affix-wrapper input,
+.ant-input-number input,
+.ant-input-number-handler-wrap {
+    background-color: #1e293b !important;
+    color: #f8fafc !important;
+    border-color: #334155 !important;
+}
+
+.ant-input:hover,
+.ant-input-number:hover,
+.ant-input-affix-wrapper:hover,
+.ant-input-number-affix-wrapper:hover {
+    border-color: #60a5fa !important;
+}
+
+.ant-input:focus,
+.ant-input-number:focus,
+.ant-input-affix-wrapper-focused,
+.ant-input-number-affix-wrapper-focused {
+    box-shadow: 0 0 0 2px rgba(96, 165, 250, 0.2) !important;
+    border-color: #60a5fa !important;
+}
+
+/* Select box */
+.ant-select-selector {
+    background-color: #1e293b !important;
+    color: #f8fafc !important;
+    border-color: #334155 !important;
+}
+
+.ant-select-selection-item,
+.ant-select-selection-placeholder {
+    color: #f8fafc !important;
+}
+
+/* Label của Form */
+.ant-form-item-label>label {
+    color: #f1f5f9 !important;
+    font-weight: 500;
+}
+
+/* Placeholder text */
+.ant-input::placeholder,
+.ant-input-number-input::placeholder {
+    color: #94a3b8 !important;
+}
+
+/* Upload (nút Upload + khung) */
+.ant-upload {
+    background-color: #1e293b !important;
+    color: #cbd5e1 !important;
+}
+
+.ant-upload:hover {
+    border-color: #60a5fa !important;
+    color: #60a5fa !important;
+}
+
+/* Modal header/footer */
+.ant-modal-content {
+    background-color: #0f172a !important;
+    color: #f1f5f9 !important;
+}
+
+.ant-modal-header {
+    background-color: #0f172a !important;
+    border-bottom: 1px solid #1e293b !important;
+}
+
+.ant-modal-title {
+    color: #ffffff !important;
+}
+
+.ant-modal-footer {
+    border-top: 1px solid #1e293b !important;
+}
+
+/* Divider text */
+.ant-divider-inner-text {
+    color: #f1f5f9 !important;
+}

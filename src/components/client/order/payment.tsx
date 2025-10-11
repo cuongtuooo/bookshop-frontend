@@ -1,195 +1,168 @@
-
-import { App, Button, Col, Divider, Form, Radio, Row, Space } from 'antd';
-import { DeleteTwoTone } from '@ant-design/icons';
-import { useEffect, useState } from 'react';
-import { Input } from 'antd';
-import { useCurrentApp } from '@/components/context/app.context';
-import type { FormProps } from 'antd';
-import { createOrderAPI } from '@/services/api';
-import { isMobile } from 'react-device-detect';
+import { App, Button, Col, Divider, Form, Radio, Row, Space, Input } from "antd";
+import { DeleteTwoTone } from "@ant-design/icons";
+import { useEffect, useState } from "react";
+import { useCurrentApp } from "@/components/context/app.context";
+import type { FormProps } from "antd";
+import { createOrderAPI } from "@/services/api";
+import { isMobile } from "react-device-detect";
+import "styles/order.dark.scss";
 
 const { TextArea } = Input;
 
 type UserMethod = "COD" | "BANKING";
+type FieldType = { fullName: string; phone: string; address: string; method: UserMethod };
+interface IProps { setCurrentStep: (v: number) => void; }
 
-type FieldType = {
-    fullName: string;
-    phone: string;
-    address: string;
-    method: UserMethod;
-};
-
-interface IProps {
-    setCurrentStep: (v: number) => void;
-}
-const Payment = (props: IProps) => {
+const Payment = ({ setCurrentStep }: IProps) => {
     const { carts, setCarts, user } = useCurrentApp();
     const [totalPrice, setTotalPrice] = useState(0);
-
     const [form] = Form.useForm();
-
     const [isSubmit, setIsSubmit] = useState(false);
     const { message, notification } = App.useApp();
-    const { setCurrentStep } = props;
 
+    const [paymentMethod, setPaymentMethod] = useState<UserMethod>("COD"); // ✅ mặc định COD
     useEffect(() => {
         if (user) {
             form.setFieldsValue({
                 fullName: user.fullName,
                 phone: user.phone,
-                method: "COD"
-            })
+                method: "COD",
+            });
         }
-    }, [user])
+    }, [user]);
 
     useEffect(() => {
-        if (carts && carts.length > 0) {
-            let sum = 0;
-            carts.map(item => {
-                sum += item.quantity * item.detail.price;
-            })
-            setTotalPrice(sum);
-        } else {
-            setTotalPrice(0);
-        }
+        const sum = carts?.reduce((a, b) => a + b.quantity * b.detail.price, 0) || 0;
+        setTotalPrice(sum);
     }, [carts]);
-
 
     const handleRemoveBook = (_id: string) => {
         const cartStorage = localStorage.getItem("carts");
         if (cartStorage) {
-            //update
             const carts = JSON.parse(cartStorage) as ICart[];
-            const newCarts = carts.filter(item => item._id !== _id)
+            const newCarts = carts.filter((i) => i._id !== _id);
             localStorage.setItem("carts", JSON.stringify(newCarts));
-            //sync React Context
             setCarts(newCarts);
         }
-    }
+    };
 
-    const handlePlaceOrder: FormProps<FieldType>['onFinish'] = async (values) => {
+    const handlePlaceOrder: FormProps<FieldType>["onFinish"] = async (values) => {
         const { address, fullName, method, phone } = values;
-        const detail = carts.map(item => ({
-            _id: item._id,
-            quantity: item.quantity,
-            bookName: item.detail.mainText
-        }))
-
+        const detail = carts.map((i) => ({
+            _id: i._id,
+            quantity: i.quantity,
+            bookName: i.detail.mainText,
+        }));
         setIsSubmit(true);
-        const res = await createOrderAPI(
-            fullName, address, phone, totalPrice, method, detail
-        );
+        const res = await createOrderAPI(fullName, address, phone, totalPrice, method, detail);
         if (res?.data) {
             localStorage.removeItem("carts");
             setCarts([]);
-            message.success('Mua hàng thành công!');
+            message.success("Mua hàng thành công!");
             setCurrentStep(2);
         } else {
             notification.error({
                 message: "Có lỗi xảy ra",
-                description:
-                    res.message && Array.isArray(res.message) ? res.message[0] : res.message,
-                duration: 5
-            })
+                description: Array.isArray(res.message) ? res.message[0] : res.message,
+            });
         }
-
         setIsSubmit(false);
-    }
+    };
 
     return (
-        <div style={{ overflow: "hidden" }}>
+        <div className="order-container-dark">
             <Row gutter={[20, 20]}>
                 <Col md={16} xs={24}>
-                    {carts?.map((item, index) => {
-                        const currentBookPrice = item?.detail?.price ?? 0;
-                        return (
-                            <div className='order-book' key={`index-${index}`}
-                                style={isMobile ? { flexDirection: 'column' } : {}}
-                            >
-                                {!isMobile ?
-                                    <>
-                                        <div className='book-content'>
-                                            <img src={`${import.meta.env.VITE_BACKEND_URL}/images/book/${item?.detail?.thumbnail}`} />
-                                            <div className='title'>
-                                                {item?.detail?.mainText}
-                                            </div>
-                                            <div className='price'>
-                                                {new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(currentBookPrice)}
-                                            </div>
-                                        </div>
-                                        <div className='action'>
-                                            <div className='quantity'>
-                                                Số lượng: {item?.quantity}
-                                            </div>
-                                            <div className='sum'>
-                                                Tổng:  {new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(currentBookPrice * (item?.quantity ?? 0))}
-                                            </div>
-                                            <DeleteTwoTone
-                                                style={{ cursor: "pointer" }}
-                                                onClick={() => handleRemoveBook(item._id)}
-                                                twoToneColor="#eb2f96"
-                                            />
-                                        </div>
-                                    </>
-                                    :
-                                    <>
-                                        <div>{item?.detail?.mainText}</div>
-                                        <div className='book-content ' style={{ width: "100%" }}>
-                                            <img src={`${import.meta.env.VITE_BACKEND_URL}/images/book/${item?.detail?.thumbnail}`} />
-                                            <div className='action' >
-                                                <div className='quantity'>
-                                                    Số lượng: {item?.quantity}
-                                                </div>
-                                                <DeleteTwoTone
-                                                    style={{ cursor: "pointer" }}
-                                                    onClick={() => handleRemoveBook(item._id)}
-                                                    twoToneColor="#eb2f96"
-                                                />
-                                            </div>
-                                        </div>
-                                        <div className='sum'>
-                                            Tổng:  {new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(currentBookPrice * (item?.quantity ?? 0))}
-                                        </div>
-                                    </>
-                                }
+                    {carts?.map((item, i) => (
+                        <div key={`cart-${i}`} className="order-book-dark">
+                            <div className="book-content-dark">
+                                <img
+                                    src={`${import.meta.env.VITE_BACKEND_URL}/images/book/${item.detail.thumbnail}`}
+                                />
+                                <div className="title">{item.detail.mainText}</div>
+                                <div className="price">
+                                    {new Intl.NumberFormat("vi-VN", {
+                                        style: "currency",
+                                        currency: "VND",
+                                    }).format(item.detail.price)}
+                                </div>
                             </div>
-                        )
-                    })}
+                            <div className="action-dark">
+                                <span>Số lượng: {item.quantity}</span>
+                                <div className="sum">
+                                    Tổng:{" "}
+                                    {new Intl.NumberFormat("vi-VN", {
+                                        style: "currency",
+                                        currency: "VND",
+                                    }).format(item.detail.price * item.quantity)}
+                                </div>
+                                <DeleteTwoTone
+                                    twoToneColor="#ff4d4f"
+                                    onClick={() => handleRemoveBook(item._id)}
+                                />
+                            </div>
+                        </div>
+                    ))}
 
-                    <div><span
-                        style={{ cursor: "pointer" }}
-                        onClick={() => setCurrentStep(0)}>
-                        Quay trở lại
-                    </span>
+                    <div className="back-btn" onClick={() => setCurrentStep(0)}>
+                        ← Quay trở lại giỏ hàng
                     </div>
                 </Col>
-                <Col md={8} xs={24} >
+
+                <Col md={8} xs={24}>
                     <Form
                         form={form}
                         name="payment-form"
                         onFinish={handlePlaceOrder}
+                        layout="vertical"
                         autoComplete="off"
-                        layout='vertical'
                     >
-                        <div className='order-sum'>
-                            <Form.Item<FieldType>
-                                label="Hình thức thanh toán"
-                                name="method"
-                            >
-                                <Radio.Group>
+                        <div className="order-sum-dark">
+                            <Form.Item<FieldType> label="Hình thức thanh toán" name="method">
+                                <Radio.Group
+                                    onChange={(e) => setPaymentMethod(e.target.value)} // ✅ cập nhật state
+                                    value={paymentMethod}
+                                >
                                     <Space direction="vertical">
-                                        <Radio value={"COD"}>Thanh toán khi nhận hàng</Radio>
-                                        <Radio value={"BANKING"}>Chuyển khoản ngân hàng</Radio>
+                                        <Radio value="COD">Thanh toán khi nhận hàng</Radio>
+                                        <Radio value="BANKING">Chuyển khoản ngân hàng</Radio>
                                     </Space>
                                 </Radio.Group>
                             </Form.Item>
 
+                            {/* ✅ Chỉ hiện QR khi chọn “BANKING” */}
+                            {paymentMethod === "BANKING" && (
+                                <div
+                                    style={{
+                                        marginBottom: 20,
+                                        textAlign: "center",
+                                        padding: 10,
+                                        border: "1px solid #444",
+                                        borderRadius: 8,
+                                        background: "#111",
+                                    }}
+                                >
+                                    <div style={{ color: "#ccc", marginBottom: 8 }}>
+                                        Quét mã QR để chuyển khoản
+                                    </div>
+                                    <img
+                                        src="/qrbank.png" // 🔁 đổi thành đường dẫn QR thật
+                                        alt="QR Thanh toán"
+                                        style={{ width: 200, borderRadius: 8 }}
+                                    />
+                                    <div style={{ color: "#ccc", marginTop: 8 }}>
+                                        <b>Ngân hàng:</b> Mbbank<br />
+                                        <b>STK:</b> 0369055930  <br />
+                                        <b>Chủ TK:</b> Trần Xuân hà<br />
+                                        {/* <b>Nội dung:</b> Thanh toán đơn hàng #{Math.floor(Math.random() * 1000)} */}
+                                    </div>
+                                </div>
+                            )}
+
                             <Form.Item<FieldType>
                                 label="Họ tên"
                                 name="fullName"
-                                rules={[
-                                    { required: true, message: 'Họ tên không được để trống!' },
-                                ]}
+                                rules={[{ required: true, message: "Họ tên không được để trống!" }]}
                             >
                                 <Input />
                             </Form.Item>
@@ -197,9 +170,7 @@ const Payment = (props: IProps) => {
                             <Form.Item<FieldType>
                                 label="Số điện thoại"
                                 name="phone"
-                                rules={[
-                                    { required: true, message: 'Số điện thoại không được để trống!' },
-                                ]}
+                                rules={[{ required: true, message: "Số điện thoại không được để trống!" }]}
                             >
                                 <Input />
                             </Form.Item>
@@ -207,33 +178,33 @@ const Payment = (props: IProps) => {
                             <Form.Item<FieldType>
                                 label="Địa chỉ nhận hàng"
                                 name="address"
-                                rules={[
-                                    { required: true, message: 'Địa chỉ không được để trống!' },
-                                ]}
+                                rules={[{ required: true, message: "Địa chỉ không được để trống!" }]}
                             >
                                 <TextArea rows={4} />
                             </Form.Item>
 
-                            <div className='calculate'>
-                                <span>  Tạm tính</span>
+                            <div className="calculate">
+                                <span>Tạm tính</span>
                                 <span>
-                                    {new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(totalPrice || 0)}
+                                    {new Intl.NumberFormat("vi-VN", {
+                                        style: "currency",
+                                        currency: "VND",
+                                    }).format(totalPrice)}
                                 </span>
                             </div>
-                            <Divider style={{ margin: "10px 0" }} />
-                            <div className='calculate'>
-                                <span> Tổng tiền</span>
-                                <span className='sum-final'>
-                                    {new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(totalPrice || 0)}
+                            <Divider />
+                            <div className="calculate">
+                                <span>Tổng tiền</span>
+                                <span className="sum-final">
+                                    {new Intl.NumberFormat("vi-VN", {
+                                        style: "currency",
+                                        currency: "VND",
+                                    }).format(totalPrice)}
                                 </span>
                             </div>
-                            <Divider style={{ margin: "10px 0" }} />
-                            <Button
-                                color="danger" variant="solid"
-                                htmlType='submit'
-                                loading={isSubmit}
-                            >
-                                Đặt Hàng ({carts?.length ?? 0})
+                            <Divider />
+                            <Button type="primary" htmlType="submit" loading={isSubmit}>
+                                Đặt hàng ({carts.length})
                             </Button>
                         </div>
                     </Form>
@@ -241,7 +212,7 @@ const Payment = (props: IProps) => {
                 </Col>
             </Row>
         </div>
-    )
-}
+    );
+};
 
 export default Payment;

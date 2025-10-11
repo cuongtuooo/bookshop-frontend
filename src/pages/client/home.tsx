@@ -60,7 +60,7 @@ const HomePage = () => {
         let query = `current=${current}&pageSize=${pageSize}`;
         if (filter) query += `&${filter}`;
         if (sortQuery) query += `&${sortQuery}`;
-        if (searchTerm) query += `&mainText=/${searchTerm}/i`;
+        if (searchTerm) query += `&name=/${searchTerm}/i`;
 
         const res = await getBooksAPI(query);
         if (res && res.data) {
@@ -131,9 +131,9 @@ const HomePage = () => {
                             <img src={b.img} alt={b.title} />
                             <div className="banner-text">
                                 <h2>{b.title}</h2>
-                                <Button type="primary" size="large">
+                                {/* <Button type="primary" size="large">
                                     Khám phá ngay
-                                </Button>
+                                </Button> */}
                             </div>
                         </div>
                     ))}

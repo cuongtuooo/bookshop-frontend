@@ -1,76 +1,120 @@
-* {
-    margin: 0;
+/* === THEME TOKENS === */
+:root {
+    --bg: #0b0f17;
+    --bg-elev: #121826;
+    --card: #141b2d;
+    --muted: #9aa4b2;
+    --text: #e6edf3;
+    --primary: #1890ff;
+    --primary-weak: rgba(24, 144, 255, .18);
+    --accent: #ff4d4f;
+    --border: #223049;
+    --shadow: 0 8px 24px rgba(0, 0, 0, .35);
 }
 
-.popover-carts {
-    .pop-cart-body {
-        .pop-cart-content {
-            display: flex;
-            flex-direction: column;
-            gap: 15px;
-
-            .book {
-                display: flex;
-                gap: 5px;
-
-                img {
-                    width: 50px;
-                    height: 50px;
-                }
-
-                .price {
-                    color: #ee4d2d;
-                }
-            }
-        }
-
-        .pop-cart-footer {
-            margin-top: 10px;
-            display: flex;
-            justify-content: end;
-
-            button {
-                background-color: #ee4d2d;
-                color: #fff;
-                border: 1px solid #ee4d2d;
-                box-shadow: 0 1px 1px 0 rgba(0, 0, 0, .03);
-                cursor: pointer;
-                border-radius: 3px;
-
-                font-size: 16px;
-                height: 40px;
-                padding: 0 20px;
-            }
-        }
-    }
+html[data-theme="light"] {
+    --bg: #f7f9fc;
+    --bg-elev: #ffffff;
+    --card: #ffffff;
+    --muted: #667085;
+    --text: #111827;
+    --primary: #1677ff;
+    --primary-weak: rgba(22, 119, 255, .12);
+    --accent: #ee4d2d;
+    --border: #e5e7eb;
+    --shadow: 0 6px 18px rgba(17, 24, 39, .08);
 }
 
+/* Base */
+html,
+body {
+    background: var(--bg);
+    color: var(--text);
+}
+
+/* Ant Design quick overrides for dark */
+.ant-card,
+.ant-drawer-content,
+.ant-dropdown-menu,
+.ant-popover-inner,
+.ant-select-dropdown,
+.ant-input,
+.ant-input-number,
+.ant-tabs-nav,
+.ant-pagination,
+.ant-rate,
+.ant-badge,
+.ant-empty,
+.ant-form,
+.ant-modal-content {
+    background: var(--card) !important;
+    color: var(--text) !important;
+}
+
+.ant-divider,
+.ant-card-bordered,
+.ant-drawer-header,
+.ant-dropdown-menu,
+.ant-popover-inner,
+.ant-select-item,
+.ant-tabs-nav::before,
+.ant-input,
+.ant-input-number,
+.ant-modal-header {
+    border-color: var(--border) !important;
+}
+
+.ant-btn-primary {
+    background: var(--primary) !important;
+    border-color: var(--primary) !important;
+}
+
+.ant-btn-default {
+    background: var(--bg-elev) !important;
+    color: var(--text) !important;
+    border-color: var(--border) !important;
+}
+
+.ant-tabs-tab,
+.ant-pagination-item a,
+.ant-rate,
+.ant-badge,
+.ant-empty-description {
+    color: var(--text) !important;
+}
+
+.ant-tabs-ink-bar {
+    background: var(--primary) !important;
+}
+
+/* Scrollbar (desktop) */
 @media (min-width: 767px) {
-
-    ::-webkit-scrollbar {
-        width: 8px;
-    }
-
-    ::-webkit-scrollbar-button {
-        width: 8px;
-        height: 5px;
-    }
-
     ::-webkit-scrollbar-track {
-        background: rgb(255, 255, 255);
-        border: thin solid rgb(238, 238, 238);
-        box-shadow: 0px 0px 3px #dfdfdf inset;
-        border-radius: 10px;
+        background: var(--bg-elev);
+        border: thin solid var(--border);
+        box-shadow: inset 0 0 3px rgba(0, 0, 0, .25);
     }
 
     ::-webkit-scrollbar-thumb {
-        background: #ccc;
-        border: thin solid #ccc;
-        border-radius: 10px;
+        background: #475569;
+        border: thin solid #475569;
     }
 
     ::-webkit-scrollbar-thumb:hover {
-        background: #7d7d7d;
+        background: #64748b;
     }
+}
 
+/* Popover giỏ hàng tông tối (kế thừa rule của bạn) */
+.popover-carts {
+    .pop-cart-body {
+        .pop-cart-content .book .price {
+            color: var(--accent);
+        }
+
+        .pop-cart-footer button {
+            background-color: var(--accent);
+            border-color: var(--accent);
+        }
+    }
 }

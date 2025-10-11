@@ -1,0 +1,146 @@
+@import "react-image-gallery/styles/scss/image-gallery.scss";
+
+.book-detail-page {
+    background: var(--bg);
+    color: var(--text);
+    min-height: calc(100vh - 120px);
+    padding: 40px 0;
+
+    .book-detail-container {
+        max-width: 1280px;
+        margin: 0 auto;
+        background: var(--card);
+        border-radius: 12px;
+        padding: 30px;
+        box-shadow: var(--shadow);
+    }
+
+    .book-title {
+        font-size: 24px;
+        font-weight: 700;
+        color: var(--text);
+    }
+
+    .book-meta {
+        color: var(--muted);
+        margin-top: 8px;
+
+        a {
+            color: var(--primary);
+        }
+    }
+
+    .rating {
+        margin: 15px 0;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        color: var(--muted);
+    }
+
+    .price {
+        background: var(--bg-elev);
+        padding: 20px;
+        border-radius: 8px;
+        display: inline-block;
+
+        .currency {
+            font-size: 30px;
+            font-weight: 800;
+            color: var(--accent);
+        }
+    }
+
+    .delivery,
+    .quantity {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        background: var(--bg-elev);
+        padding: 10px 16px;
+        border-radius: 6px;
+        margin-top: 12px;
+
+        .label {
+            color: var(--muted);
+            font-weight: 500;
+        }
+    }
+
+    .quantity {
+        .control {
+            display: flex;
+            align-items: center;
+
+            button {
+                width: 32px;
+                height: 32px;
+                border: 1px solid var(--border);
+                background: transparent;
+                color: var(--text);
+                cursor: pointer;
+            }
+
+            input {
+                width: 60px;
+                text-align: center;
+                border: 1px solid var(--border);
+                background: var(--bg-elev);
+                color: var(--text);
+                height: 32px;
+            }
+        }
+    }
+
+    .desc {
+        margin-top: 20px;
+
+        h3 {
+            color: var(--text);
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        p {
+            color: var(--muted);
+            line-height: 1.6;
+            white-space: pre-line;
+        }
+    }
+
+    .buy {
+        margin-top: 30px;
+        display: flex;
+        gap: 20px;
+        justify-content: start;
+
+        button {
+            font-size: 16px;
+            height: 48px;
+            padding: 0 24px;
+            border-radius: 6px;
+            border: 1px solid var(--accent);
+            cursor: pointer;
+            transition: 0.2s;
+
+            &.cart {
+                background: rgba(255, 77, 79, 0.1);
+                color: var(--accent);
+
+                &:hover {
+                    background: rgba(255, 77, 79, 0.2);
+                }
+            }
+
+            &.now {
+                background: var(--accent);
+                color: #fff;
+
+                &:hover {
+                    background: #ff6a64;
+                }
+            }
+        }
+    }
+}
+

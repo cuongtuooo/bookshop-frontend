@@ -1,27 +1,25 @@
 import { useCurrentApp } from "@/components/context/app.context";
 import { AntDesignOutlined, UploadOutlined } from "@ant-design/icons";
-import { App, Avatar, Button, Col, Form, Input, Row, Upload } from "antd";
+import { App, Avatar, Button, Col, Form, Input, Row, Upload, Card } from "antd";
 import { useEffect, useState } from "react";
-import type { FormProps } from 'antd';
-import { UploadChangeParam } from 'antd/es/upload';
-import { UploadRequestOption as RcCustomRequestOptions } from 'rc-upload/lib/interface';
+import type { FormProps } from "antd";
+import { UploadChangeParam } from "antd/es/upload";
+import { UploadRequestOption as RcCustomRequestOptions } from "rc-upload/lib/interface";
 import { updateUserInfoAPI, uploadFileAPI } from "@/services/api";
-import type { UploadFile } from 'antd';
+import type { UploadFile } from "antd";
 
 type FieldType = {
     _id: string;
     email: string;
     fullName: string;
     phone: string;
-    role:string;
+    role: string;
     avatar: string;
 };
+
 const UserInfo = () => {
     const [form] = Form.useForm();
     const { user, setUser } = useCurrentApp();
-
-    console.log("check user từ userinfo: ", user)
-
     const [userAvatar, setUserAvatar] = useState(user?.avatar ?? "");
     const [isSubmit, setIsSubmit] = useState(false);
     const { message, notification } = App.useApp();
@@ -36,12 +34,10 @@ const UserInfo = () => {
                 phone: user.phone,
                 fullName: user.fullName,
                 // @ts-ignore
-                role: user.role._id
-            })
+                role: user.role._id,
+            });
         }
-    }, [user])
-
-    console.log("check cái form ", form.getFieldsValue())
+    }, [user]);
 
     const handleUploadFile = async (options: RcCustomRequestOptions) => {
         const { onSuccess } = options;
@@ -51,11 +47,9 @@ const UserInfo = () => {
         if (res && res.data) {
             const newAvatar = res.data.fileName;
             setUserAvatar(newAvatar);
-
-            if (onSuccess)
-                onSuccess('ok')
+            if (onSuccess) onSuccess("ok");
         } else {
-            message.error(res.message)
+            message.error(res.message);
         }
     };
 
@@ -65,123 +59,103 @@ const UserInfo = () => {
         showUploadList: false,
         customRequest: handleUploadFile,
         onChange(info: UploadChangeParam) {
-            if (info.file.status !== 'uploading') {
-            }
-            if (info.file.status === 'done') {
+            if (info.file.status === "done") {
                 message.success(`Upload file thành công`);
-            } else if (info.file.status === 'error') {
+            } else if (info.file.status === "error") {
                 message.error(`Upload file thất bại`);
             }
         },
     };
 
-    const onFinish: FormProps<FieldType>['onFinish'] = async (values) => {
-        const { fullName, phone, _id,  role, email, avatar } = values;
-        console.log(" check valude",values)
-        setIsSubmit(true)
+    const onFinish: FormProps<FieldType>["onFinish"] = async (values) => {
+        const { fullName, phone, _id, role, email, avatar } = values;
+        setIsSubmit(true);
         const res = await updateUserInfoAPI(_id, avatar, email, fullName, phone, role);
 
-        console.log("check ress", res.data?.role)
         if (res && res.data) {
-            //update react context
             setUser({
                 ...user!,
                 avatar: userAvatar,
                 fullName,
-                phone
-            })
+                phone,
+            });
             message.success("Cập nhật thông tin user thành công");
-
-            //force renew token
-            localStorage.removeItem('access_token');
+            localStorage.removeItem("access_token");
         } else {
             notification.error({
                 message: "Đã có lỗi xảy ra",
-                description: res.message
-            })
+                description: res.message,
+            });
         }
-        setIsSubmit(false)
-    }
+        setIsSubmit(false);
+    };
 
     return (
-        <div style={{ minHeight: 400 }}>
-            <Row>
-                <Col sm={24} md={12}>
-                    <Row gutter={[30, 30]}>
-                        <Col span={24}>
-                            <Avatar
-                                size={{ xs: 32, sm: 64, md: 80, lg: 128, xl: 160, xxl: 200 }}
-                                icon={<AntDesignOutlined />}
-                                src={urlAvatar}
-                                shape="circle"
-                            />
-                        </Col>
-                        <Col span={24}>
-                            <Upload {...propsUpload}>
-                                <Button icon={<UploadOutlined />}>
-                                    Upload Avatar
-                                </Button>
-                            </Upload>
-                        </Col>
-                    </Row>
-                </Col>
-                <Col sm={24} md={12}>
-                    <Form
-                        onFinish={onFinish}
-                        form={form}
-                        name="user-info"
-                        autoComplete="off"
-                    >
-                        <Form.Item<FieldType>
-                            hidden
-                            labelCol={{ span: 24 }}
-                            label="_id"
-                            name="_id"
-                        >
-                            <Input disabled hidden />
-                        </Form.Item>
+        <div className="account-container">
+            <Row gutter={[30, 30]}>
+                {/* <Col sm={24} md={10} className="account-avatar">
+                    <Card bordered={false} className="card-dark">
+                        <Avatar
+                            size={160}
+                            icon={<AntDesignOutlined />}
+                            src={urlAvatar}
+                            shape="circle"
+                            className="avatar-glow"
+                        />
+                        <Upload {...propsUpload}>
+                            <Button icon={<UploadOutlined />}>Upload Avatar</Button>
+                        </Upload>
+                    </Card>
+                </Col> */}
 
-                        <Form.Item<FieldType>
-                            labelCol={{ span: 24 }}
-                            label="Email"
-                            name="email"
-                            rules={[{ required: true, message: 'Email không được để trống!' }]}
-                        >
-                            <Input  />
-                        </Form.Item>
+                <Col sm={24}>
+                    <Card bordered={false} className="card-dark">
+                        <Form onFinish={onFinish} form={form} name="user-info" autoComplete="off" layout="vertical">
+                            <Form.Item<FieldType> hidden name="_id">
+                                <Input hidden />
+                            </Form.Item>
 
-                        <Form.Item<FieldType>
-                            labelCol={{ span: 24 }}
-                            label="Tên hiển thị"
-                            name="fullName"
-                            rules={[{ required: true, message: 'Tên hiển thị không được để trống!' }]}
-                        >
-                            <Input />
-                        </Form.Item>
+                            <Form.Item<FieldType>
+                                label="Email"
+                                name="email"
+                                rules={[{ required: true, message: "Email không được để trống!" }]}
+                            >
+                                <Input />
+                            </Form.Item>
 
-                        <Form.Item<FieldType>
-                            labelCol={{ span: 24 }}
-                            label="Số điện thoại"
-                            name="phone"
-                            rules={[{ required: true, message: 'Số điện thoại không được để trống!' }]}
-                        >
-                            <Input />
-                        </Form.Item>
+                            <Form.Item<FieldType>
+                                label="Tên hiển thị"
+                                name="fullName"
+                                rules={[{ required: true, message: "Tên hiển thị không được để trống!" }]}
+                            >
+                                <Input />
+                            </Form.Item>
 
-                        <Form.Item<FieldType>
-                            labelCol={{ span: 24 }}
-                            label="RRole"
-                            name="role"
-                            rules={[{ required: true, message: 'role thoại không được để trống!' }]}
-                        >
-                            <Input />
-                        </Form.Item>
-                        <Button loading={isSubmit} onClick={() => form.submit()}>Cập nhật</Button>
-                    </Form>
+                            <Form.Item<FieldType>
+                                label="Số điện thoại"
+                                name="phone"
+                                rules={[{ required: true, message: "Số điện thoại không được để trống!" }]}
+                            >
+                                <Input />
+                            </Form.Item>
+
+                            <Form.Item<FieldType>
+                                label="Vai trò"
+                                name="role"
+                                rules={[{ required: true, message: "Vai trò không được để trống!" }]}
+                            >
+                                <Input disabled />
+                            </Form.Item>
+
+                            <Button type="primary" loading={isSubmit} onClick={() => form.submit()}>
+                                Cập nhật
+                            </Button>
+                        </Form>
+                    </Card>
                 </Col>
             </Row>
         </div>
-    )
-}
+    );
+};
 
 export default UserInfo;
